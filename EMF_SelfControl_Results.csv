@@ -1,0 +1,4 @@
+Condition,Health_input,Goal_input,Decision_cycles,Choice,First_differential,Most_tasty_biased_differential,Final_differential,RT_empirical_approx_ms,RT_model_calibrated_ms,RT_fit_residual_ms
+Tasty choice,0.000000,0.000000,11,Tasty,0.000000,-0.877193,-0.877193,1300.000000,1299.581831,-0.418169
+Healthy / higher restraint,0.200000,0.250000,24,Healthy,0.000000,-0.008512,0.187378,1330.000000,1330.605624,0.605624
+Healthy / lower restraint,0.200000,0.000000,53,Healthy,0.000000,-0.075742,0.185491,1400.000000,1399.812545,-0.187455

@@ -1,0 +1,14 @@
+parameter,value
+cue_to_approach,1.0
+approach_to_press,1.0
+enough_to_approach_frito,-1.0
+learning_rate,0.05
+learned_ceiling,1.0
+leak,0.1
+dt,0.1
+settling_updates,400
+limited_episodes,2
+extended_episodes,12
+single_linear_scale_responses_s_at_unit_activation,2.6095155520013327
+scale_calibration,pooled pre-satiation empirical grand mean only
+empirical_values,"visual approximations from original Figure 2, not tabulated published values"

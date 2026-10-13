@@ -1,0 +1,11 @@
+Condition,Cue,Need,Direct_salt_UCS,Approach_activation,Avoid_activation,NM_activation,Action_balance_model
+Day 11: normal,salt,0,False,0.000000,0.080000,0.000000,-0.400000
+Day 11: normal,sucrose,0,False,0.870000,0.000000,0.000000,4.350000
+Day 13: first CS,salt,1,False,0.770000,0.000000,0.909091,3.850000
+Day 13: CS 2–10,salt,1,False,0.770000,0.000000,0.909091,3.850000
+Day 13: CS 2–10,sucrose,1,False,0.870000,0.000000,0.909091,4.350000
+Day 13: CS + UCS,salt,1,True,0.801622,0.000000,0.909091,4.008109
+Day 18: repleted (unchanged weights),salt,0,False,0.000000,0.080000,0.000000,-0.400000
+Sodium depleted; NM gain off,salt,1,False,0.000000,0.080000,0.909091,-0.400000
+Sodium depleted; neutral cue,neutral,1,False,0.000000,0.000000,0.909091,0.000000
+Day 18: repleted (post-reinforcement learning),salt,0,False,0.120000,0.000000,0.000000,0.600000

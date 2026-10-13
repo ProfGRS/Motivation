@@ -1,0 +1,17 @@
+Parameter,Value
+cs_ucs,0.8
+ucs_strong,1.0
+ucs_weak,0.1
+mutual_inhibition,-1.0
+sodium_to_nm,1.0
+nm_gain_coefficient,5.761202985771073
+theta_approach,0.21965789675307107
+theta_avoid,0.8801148953391233
+decay,0.1
+dt,0.1
+settling_cycles,500.0
+observation_scale,5.0
+plasticity_rate,0.1
+plasticity_ceiling,1.0
+fitted_postreinforcement_plasticity_rate,0.02452288956527288
+salt_to_approach_weight_after_reinforcement,0.2625490011547379

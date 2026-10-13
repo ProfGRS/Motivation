@@ -1,0 +1,9 @@
+training_sessions,phase,food,empirical_responses_per_s_approx,source
+2,Before satiation,Unsatiated food,2.85,"Tricomi et al. (2009), Fig 2 (visual estimates)"
+2,Before satiation,Food subsequently satiated,2.4,"Tricomi et al. (2009), Fig 2 (visual estimates)"
+12,Before satiation,Unsatiated food,2.3,"Tricomi et al. (2009), Fig 2 (visual estimates)"
+12,Before satiation,Food subsequently satiated,2.05,"Tricomi et al. (2009), Fig 2 (visual estimates)"
+2,After satiation,Unsatiated food,3.05,"Tricomi et al. (2009), Fig 2 (visual estimates)"
+2,After satiation,Satiated food,1.2,"Tricomi et al. (2009), Fig 2 (visual estimates)"
+12,After satiation,Unsatiated food,2.6,"Tricomi et al. (2009), Fig 2 (visual estimates)"
+12,After satiation,Satiated food,2.4,"Tricomi et al. (2009), Fig 2 (visual estimates)"

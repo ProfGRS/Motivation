@@ -1,0 +1,7 @@
+sessions,condition,Approach_Frito,Press_Frito,predicted_responses_per_s
+2,normal,0.90909091,0.90887172,2.37171488
+2,satiated,0.00000000,0.46859475,1.22280528
+2,"satiated, direct cue-to-press removed",0.00000000,0.00000000,0.00000000
+12,normal,0.90909091,0.93055016,2.42828512
+12,satiated,0.00000000,0.81160416,2.11789368
+12,"satiated, direct cue-to-press removed",0.00000000,0.00000000,0.00000000

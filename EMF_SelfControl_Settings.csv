@@ -1,0 +1,16 @@
+Parameter,Value
+tasty_to_approach,1.0
+healthy_to_approach,0.9
+healthy_goal_reciprocal,0.9
+approach_inhibition,-0.7
+leak,0.1
+dt,0.1
+cycles,1200.0
+criterion,0.1
+mouse_gain,0.15
+tasty_input,0.25
+healthy_input,0.2
+high_goal_input,0.25
+low_goal_input,0.0
+RT_readout_intercept_ms,1273.330930064888
+RT_readout_ms_per_cycle,2.386445565969723

@@ -1,0 +1,8 @@
+source,target,initial_weight,limited_weight,extended_weight
+M&M Cue,Approach M&M,1.00000000,1.00000000,1.00000000
+Frito Cue,Approach Frito,1.00000000,1.00000000,1.00000000
+Enough (Frito),Approach Frito,-1.00000000,-1.00000000,-1.00000000
+M&M Cue,Press M&M,0.00000000,0.08826323,0.43079729
+Approach M&M,Press M&M,1.00000000,1.00000000,1.00000000
+Frito Cue,Press Frito,0.00000000,0.08826323,0.43079729
+Approach Frito,Press Frito,1.00000000,1.00000000,1.00000000

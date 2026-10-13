@@ -1,0 +1,13 @@
+Source,Target,Weight,Kind
+UCS_sucrose,CS_sucrose,0.799998,Excitatory
+CS_sucrose,UCS_sucrose,0.799998,Excitatory
+UCS_salt,CS_salt,0.799998,Excitatory
+CS_salt,UCS_salt,0.799998,Excitatory
+Sodium_need,NM,1.000000,Excitatory
+UCS_sucrose,Approach,1.000000,Excitatory
+UCS_salt,Approach,0.100000,Excitatory
+Avoid,Approach,-1.000000,Inhibitory
+UCS_sucrose,Avoid,0.100000,Excitatory
+UCS_salt,Avoid,1.000000,Excitatory
+Approach,Avoid,-1.000000,Inhibitory
+NM,Approach (salt-UCS input),5.761203,Multiplicative gain coefficient (not additive)

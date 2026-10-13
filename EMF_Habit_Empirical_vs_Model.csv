@@ -1,0 +1,9 @@
+training_sessions,training,phase,food,empirical_estimate_responses_per_s,predicted_responses_per_s,empirical_estimate_responses_per_min,predicted_responses_per_min,Press_activation,Approach_activation,cue_to_press_weight,estimated_scale_responses_per_s_at_unit_activation,enough_state_active
+2,Limited (1 day),Before satiation,Unsatiated food,2.85000000,2.37171488,171.00000000,142.30289261,0.90887172,0.90909091,0.08826323,2.60951555,0
+2,Limited (1 day),Before satiation,Food subsequently satiated,2.40000000,2.37171488,144.00000000,142.30289261,0.90887172,0.90909091,0.08826323,2.60951555,0
+12,Extended (3 days),Before satiation,Unsatiated food,2.30000000,2.42828512,138.00000000,145.69710739,0.93055016,0.90909091,0.43079729,2.60951555,0
+12,Extended (3 days),Before satiation,Food subsequently satiated,2.05000000,2.42828512,123.00000000,145.69710739,0.93055016,0.90909091,0.43079729,2.60951555,0
+2,Limited (1 day),After satiation,Unsatiated food,3.05000000,2.37171488,183.00000000,142.30289261,0.90887172,0.90909091,0.08826323,2.60951555,0
+2,Limited (1 day),After satiation,Satiated food,1.20000000,1.22280528,72.00000000,73.36831703,0.46859475,0.00000000,0.08826323,2.60951555,1
+12,Extended (3 days),After satiation,Unsatiated food,2.60000000,2.42828512,156.00000000,145.69710739,0.93055016,0.90909091,0.43079729,2.60951555,0
+12,Extended (3 days),After satiation,Satiated food,2.40000000,2.11789368,144.00000000,127.07362081,0.81160416,0.00000000,0.43079729,2.60951555,1

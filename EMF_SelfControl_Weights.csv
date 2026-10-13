@@ -1,0 +1,7 @@
+From,To,Weight
+Health Goal,Healthy Option,0.9
+Healthy Option,Health Goal,0.9
+Tasty Option,Approach Tasty,1.0
+Approach Healthy,Approach Tasty,-0.7
+Healthy Option,Approach Healthy,0.9
+Approach Tasty,Approach Healthy,-0.7
