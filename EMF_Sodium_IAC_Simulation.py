@@ -9,12 +9,15 @@ No novelty parameter is included: the same input and weights are used for the
 first and subsequent depleted CS-only trials. The direct CS+UCS condition
 clamps the existing UCS_salt unit, without adding a node.
 
+After cue-outcome training, weights are fixed for ALL test conditions.
+Sodium depletion activates NM-mediated gain; repletion switches the gain off,
+restoring baseline avoidance without any post-reinforcement learning.
+
 Running this script creates outputs in the same directory.
 Dependencies: numpy, scipy, pandas, matplotlib.
 """
 from pathlib import Path
 from dataclasses import dataclass, replace
-import csv
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -40,9 +43,6 @@ class Params:
     dt: float = 0.10                   # simulation integration step
     settling_cycles: int = 500
     observation_scale: float = 5.00    # assumed conversion from activation balance to action counts
-    # separate learning option after CS-UCS reinforcement
-    plasticity_rate: float = 0.10
-    plasticity_ceiling: float = 1.00
 
 
 def weight_matrix(p):
@@ -139,29 +139,6 @@ def calibrate(p,W):
     return replace(p,nm_gain_coefficient=float(gain))
 
 
-def learn_during_reinforcement(p,W,rate,episodes=10):
-    """Optional standard NM-gated Hebbian strengthening AFTER first CS-only tests.
-    Uses only the currently existing UCS_salt->Approach connection (no new nodes).
-    """
-    W=W.copy()
-    log=[]
-    for e in range(episodes):
-        v=settle(p,W,'salt',1,reinforce_salt=True)
-        m=v['NM'];pre=v['UCS_salt'];post=v['Approach']
-        old=W[IDX['Approach'],IDX['UCS_salt']]
-        W[IDX['Approach'],IDX['UCS_salt']] += rate*m*pre*post*(p.plasticity_ceiling-old)
-        log.append({'episode':e+1,'salt_to_approach_weight':W[IDX['Approach'],IDX['UCS_salt']]})
-    return W,log
-
-
-def calibrate_later_learning(p,W):
-    def residual(r):
-        Wr,_=learn_during_reinforcement(p,W,r)
-        return settle(p,Wr,'salt',0)['balance']-.6
-    rate=brentq(residual,0.001,1.0)
-    return float(rate),learn_during_reinforcement(p,W,rate)
-
-
 def main():
     p0=Params()
     W,training_log=train_cue_associations(p0,weight_matrix(p0))
@@ -189,21 +166,16 @@ def main():
                      'Avoid_activation':vals['Avoid'],
                      'NM_activation':vals['NM'],
                      'Action_balance_model':vals['balance']})
-    assert np.array_equal(W,W0), 'First-responding simulations must hold weights fixed'
+    assert np.array_equal(W,W0), 'Weights must remain fixed in every test'
     assert rows[0]['Action_balance_model']<0 < rows[2]['Action_balance_model']
     assert abs(rows[1]['Action_balance_model']-rows[4]['Action_balance_model'])<1e-8
     assert abs(rows[6]['Action_balance_model']-rows[0]['Action_balance_model'])<1e-8
+    assert abs(rows[6]['Action_balance_model'] + 0.40) < 1e-6, 'Repleted model must return to -0.40'
     assert rows[7]['Action_balance_model']<0
     assert abs(rows[8]['Action_balance_model'])<1e-12
-    # Optional model of post-reinforcement repletion result.
-    lr,(Wafter,learning_log)=calibrate_later_learning(p,W)
-    final=settle(p,Wafter,'salt',0)
-    rows.append({'Condition':'Day 18: repleted (post-reinforcement learning)',
-                 'Cue':'salt','Need':0,'Direct_salt_UCS':False,
-                 'Approach_activation':final['Approach'],'Avoid_activation':final['Avoid'],
-                 'NM_activation':final['NM'],'Action_balance_model':final['balance']})
+    # All test conditions use the same learned weights, including repletion.
+    assert np.array_equal(W, W0), 'No test may change learned weights'
     pd.DataFrame(rows).to_csv(OUT/'EMF_IAC_Sodium_Results.csv',index=False,float_format='%.6f')
-    pd.DataFrame(learning_log).to_csv(OUT/'EMF_IAC_Sodium_Optional_Learning.csv',index=False,float_format='%.6f')
 
     # Exact network-arrow weight manifest (modulatory gain listed separately).
     arrows=[]
@@ -218,8 +190,6 @@ def main():
     pd.DataFrame(arrows).to_csv(OUT/'EMF_IAC_Sodium_Arrow_Weights.csv',index=False,float_format='%.6f')
 
     metrics=[{'Parameter':k,'Value':v} for k,v in vars(p).items()]
-    metrics.append({'Parameter':'fitted_postreinforcement_plasticity_rate','Value':lr})
-    metrics.append({'Parameter':'salt_to_approach_weight_after_reinforcement','Value':Wafter[IDX['Approach'],IDX['UCS_salt']]})
     pd.DataFrame(metrics).to_csv(OUT/'EMF_IAC_Sodium_Settings.csv',index=False)
 
     normal,tn=settle(p,W,'salt',0,save_trace=True)
@@ -234,17 +204,12 @@ def main():
     empirical=[-.40,3.85,2.90,3.15,.60,4.35,4.75]
     model=[rows[0]['Action_balance_model'],rows[2]['Action_balance_model'],
            rows[3]['Action_balance_model'],rows[5]['Action_balance_model'],
-           rows[-1]['Action_balance_model'],rows[1]['Action_balance_model'],
-           rows[4]['Action_balance_model']]
-    fixed_model=[rows[0]['Action_balance_model'],rows[2]['Action_balance_model'],
-           rows[3]['Action_balance_model'],rows[5]['Action_balance_model'],
            rows[6]['Action_balance_model'],rows[1]['Action_balance_model'],
            rows[4]['Action_balance_model']]
     x=np.arange(len(names))
     fig,ax=plt.subplots(figsize=(10.6,4.7))
     ax.plot(x,empirical,'o-',label='Empirical means (visual estimates)')
-    ax.plot(x,model,'s--',label='EMF IAC (optional learning after reinforcement)')
-    ax.plot(x[4],fixed_model[4],marker='x',markersize=12,linestyle='None',label='Repletion prediction if weights never change')
+    ax.plot(x,model,'s--',label='EMF IAC (fixed weights during testing)')
     ax.axhline(0,color='0.55',lw=.8)
     ax.set_xticks(x,names,rotation=25,ha='right')
     ax.set_ylabel('Appetitive minus aversive actions per cue\n(empirical); scaled IAC activation balance (model)')
@@ -277,11 +242,8 @@ def main():
       'depleted_sucrose':rows[4]['Action_balance_model'],
       'depleted_reinforced':rows[5]['Action_balance_model'],
       'repleted_fixed':rows[6]['Action_balance_model'],
-      'repleted_after_learning':final['balance'],
       'ablation':rows[7]['Action_balance_model'],
-      'control':rows[8]['Action_balance_model'],
-      'optional_learning_rate':lr,
-      'postlearned_salt_to_approach':Wafter[IDX['Approach'],IDX['UCS_salt']]
+      'control':rows[8]['Action_balance_model']
     }
     print(pd.DataFrame(rows).to_string(index=False))
     print('METRICS:',metrics_out)
